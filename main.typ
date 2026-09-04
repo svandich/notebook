@@ -145,3 +145,4 @@
 #insert("various/knuth_dp.h")
 #insert("various/combinatorial.h")
 #insert("various/nt.h")
+#insert("various/random.h")
