@@ -1,5 +1,3 @@
-#import "@preview/digestify:0.1.0": *
-#import "@preview/mitex:0.2.5": *
 #let project(body) = {
   let vertical-line(anchor, x) = {
     place(
@@ -113,7 +111,7 @@
   }
   return deps
 }
-#let verified-files = depends-unique(json.decode(read("stats.json")))
+#let verified-files = depends-unique(json("stats.json"))
 
 #let insert(filename) = {
   let extract-code(contents) = {
@@ -131,10 +129,6 @@
   let code = extract-code(contents)
   let line-count = code.split("\n").len()
   return block[
-    #if (metadata.at("type", default: "cpp") == "tex") {
-      v(1em);
-    }
-
     #block(breakable: false, width: 100%, fill: gray.transparentize(80%), inset: 3pt, outset: 3pt)[
       #set text(8pt)
       == #eval(metadata.name, mode: "markup")
@@ -192,10 +186,6 @@
     }
     
     #if (metadata.at("type", default: "cpp") == "typst") {
-      set par(spacing: 0.5em)
-      set text(size: 8pt)
-      eval(code, mode: "markup")
-    } else if (metadata.at("type", default: "cpp") == "tex") {
       show heading.where(level: 2): it => [
         #v(0.5em)
         #it.body
@@ -203,8 +193,7 @@
       set par(spacing: 0.5em)
       set text(size: 8pt)
       set heading(outlined: false)
-      mitext(code)
-      set heading(outlined: true)
+      eval(code, mode: "markup")
     } else {
       if code != "" {
         block(raw(code, lang: "cpp", block: true))
