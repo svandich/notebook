@@ -16,8 +16,8 @@
 
   institution: "University of Chile",
   institution-short: "UCH",
-  subtitle: "sin globito no hay fiesta",
-  authors: "Diego Arias, Gabriel Carmona, Martín Ruiz-Tagle",
+  subtitle: "mira mamá sin caña",
+  authors: "Lucas Bustamante, Felipe Cabezas, Dmitri Ramirez",
   logo: "logo.svg",
   logo-height: 128pt,
 )
