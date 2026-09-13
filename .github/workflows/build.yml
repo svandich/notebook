@@ -30,11 +30,11 @@ jobs:
         ./preprocess.py
         ./typst-x86_64-unknown-linux-musl/typst compile main.typ notebook.pdf
     - name: Delete old release
-      if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'master'
+      if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
       continue-on-error: true
       run: |
-        gh release delete master -y --cleanup-tag
+        gh release delete main -y --cleanup-tag
     - name: Create release
-      if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'master'
+      if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
       run: |
-        gh release create master notebook.pdf
+        gh release create main notebook.pdf
