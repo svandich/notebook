@@ -1,5 +1,3 @@
-#import "@preview/mitex:0.2.7": *
-
 #let config = (
   columns: 3,
   gutter: 1.5%,
@@ -155,19 +153,16 @@
 
   let snippet-type = metadata.at("type", default: "cpp")
   if snippet-type == "typst" {
-    set par(spacing: 0.5em)
-    set text(size: 8pt)
-    eval(code, mode: "markup")
-  } else if snippet-type == "tex" {
-    show heading.where(level: 2): it => [
-      #v(0.5em)
-      #it.body
-    ]
+    show heading.where(level: 2): it => block(
+      above: 1em,
+      below: 0.6em,
+      sticky: true,
+      it.body,
+    )
     set par(spacing: 0.5em)
     set text(size: 8pt)
     set heading(outlined: false)
-    mitext(code)
-    set heading(outlined: true)
+    eval(code, mode: "markup")
   } else {
     if code != "" {
       block(raw(code, lang: "cpp", block: true))
@@ -257,10 +252,6 @@
   let is-verified = full-filename in verified-files
 
   block[
-    #if metadata.at("type", default: "cpp") == "tex" {
-      v(1em)
-    }
-
     #snippet-header(metadata, is-verified: is-verified)
 
     #v(cfg.snippet-gap)
