@@ -37,4 +37,4 @@ jobs:
     - name: Create release
       if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
       run: |
-        gh release create main notebook.pdf
+        gh release create main notebook.pdf --title main --notes ""
