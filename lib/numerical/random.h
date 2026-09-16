@@ -3,7 +3,7 @@
    name = "Random Number Generator"
    [info]
    description = "Random number generation for integer ranges from l to r with clock based seeds."
-   time = "$O(log(r-l))$ -> amortized $O(1)$"
+   time = "$O(log(r-l))$ $->$ amortized $O(1)$"
    - */
 #include <random>
 #include <chrono>
