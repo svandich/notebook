@@ -66,6 +66,7 @@
 #insert("numerical/integrate.h")
 #insert("numerical/integrate_adaptive.h")
 #insert("numerical/simplex.h")
+#insert("numerical/random.h")
 = Geometry
 #insert("geometry/point.h")
 #insert("geometry/line_distance.h")
@@ -145,4 +146,3 @@
 #insert("various/knuth_dp.h")
 #insert("various/combinatorial.h")
 #insert("various/nt.h")
-#insert("various/random.h")
