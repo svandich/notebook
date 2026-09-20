@@ -16,7 +16,7 @@ def hash_content(content):
     return result.stdout.strip()
 
 
-def process_header_file(input_file: Path, output_file: Path, interval: int = 8) -> None:
+def process_header_file(input_file: Path, output_file: Path, interval: int = 4) -> None:
     """Process a single header file and generate hashes at specified intervals."""
     # Create output directory if needed
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -53,7 +53,7 @@ def main():
     # Configuration
     input_dir = Path("./lib")
     output_dir = Path("./hashes")
-    interval = 8
+    interval = 4
 
     # Create output directory
     output_dir.mkdir(exist_ok=True)
