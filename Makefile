@@ -4,10 +4,16 @@ PYTHON ?= python3
 MAIN := main.typ
 PDF  := notebook.pdf
 
+# Print-optimized builds (no transparency or color emoji, so pdftops keeps
+# them as vectors). PRINT_PAPER is the printer's paper: us-letter or a4.
+PRINT_PAPER ?= us-letter
+HORIZONTAL  := notebook-horizontal.pdf
+VERTICAL    := notebook-vertical.pdf
+
 SNIPPETS := $(shell find lib -type f)
 STAMP    := .hashes.stamp
 
-.PHONY: all hashes watch clean distclean
+.PHONY: all horizontal vertical print hashes watch clean distclean
 
 all: $(PDF)
 
@@ -25,14 +31,28 @@ $(STAMP): preprocess.py $(SNIPPETS)
 stats.json:
 	@echo '[]' > $@
 
-$(PDF): $(MAIN) template.typ theme.xml logo.svg $(STAMP) stats.json
+DEPS := $(MAIN) template.typ theme.xml logo.svg $(STAMP) stats.json
+
+$(PDF): $(DEPS)
 	$(TYPST) compile $(MAIN) $@
+
+horizontal: $(HORIZONTAL)
+vertical: $(VERTICAL)
+print: horizontal vertical
+
+# Print with `duplex -l file.ps` (landscape)
+$(HORIZONTAL): $(DEPS)
+	$(TYPST) compile --input orientation=landscape --input paper=$(PRINT_PAPER) --input print=true $(MAIN) $@
+
+# Print with `duplex file.ps` (portrait)
+$(VERTICAL): $(DEPS)
+	$(TYPST) compile --input orientation=portrait --input paper=$(PRINT_PAPER) --input print=true $(MAIN) $@
 
 watch: $(STAMP) stats.json
 	$(TYPST) watch $(MAIN) $(PDF)
 
 clean:
-	rm -f $(PDF) $(STAMP)
+	rm -f $(PDF) $(HORIZONTAL) $(VERTICAL) $(STAMP)
 	rm -rf hashes
 
 # Also drops the placeholder stats.json.
