@@ -1,10 +1,37 @@
+// Build options, passed with `typst compile --input key=value` (see Makefile):
+//   orientation: "landscape" (default) or "portrait"
+//   paper:       overrides the layout's paper, e.g. "us-letter"
+//   print:       "true" avoids transparency and color emoji, which make
+//                pdftops rasterize whole pages that old printers drop
+#let orientation = sys.inputs.at("orientation", default: "landscape")
+#let print-safe = sys.inputs.at("print", default: "false") == "true"
+
+#let layouts = (
+  landscape: (
+    paper: "a4",
+    flipped: true,
+    columns: 3,
+    margin-top: 1.25cm,
+    header-ascent: 40%,
+  ),
+  portrait: (
+    paper: "us-letter",
+    flipped: false,
+    columns: 2,
+    margin-top: 1.6cm,
+    header-ascent: 20%,
+  ),
+)
+
+#let layout = layouts.at(orientation)
+#if "paper" in sys.inputs {
+  layout.paper = sys.inputs.paper
+}
+
 #let config = (
-  columns: 3,
   gutter: 1.5%,
   margin-x: 0.6cm,
-  margin-top: 1.25cm,
   margin-bottom: 0.9cm,
-  header-ascent: 40%,
 
   code-size: 6.5pt,
   heading-above: 16pt,
@@ -18,7 +45,7 @@
   authors: "Lucas Bustamante, Felipe Cabezas, Dmitri Ramirez",
   logo: "logo.svg",
   logo-height: 128pt,
-)
+) + layout
 
 #let extract-code(contents) = {
   contents.split("- */\n").at(-1).trim("\n")
@@ -96,7 +123,7 @@
     breakable: false,
     sticky: true,
     width: 100%,
-    fill: gray.transparentize(80%),
+    fill: if print-safe { luma(238) } else { gray.transparentize(80%) },
     inset: 3pt,
     outset: (x: 3pt, y: 1.5pt),
   )[
@@ -151,6 +178,10 @@
 #let snippet-body(metadata, code, hash-metadata, line-count, hash-padding: config.hash-padding) = {
   show raw.line: it => render-code-line(it, hash-metadata, line-count, padding: hash-padding)
 
+  let code = if print-safe {
+    code.replace(regex("\\s*[\\p{Extended_Pictographic}\\x{200D}\\x{FE0F}]+"), "")
+  } else { code }
+
   let snippet-type = metadata.at("type", default: "cpp")
   if snippet-type == "typst" {
     show heading.where(level: 2): it => block(
@@ -179,8 +210,8 @@
   set document(title: "Notebook")
 
   set page(
-    paper: "a4",
-    flipped: true,
+    paper: cfg.paper,
+    flipped: cfg.flipped,
     margin: (
       left: cfg.margin-x,
       right: cfg.margin-x,
