@@ -17,5 +17,8 @@ using vi = vec<int>;
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = a; i < (b); ++i)
 
-// cin.tie(0)->sync_with_stdio(0);
-// cin.exceptions(cin.failbit);
+int main() {
+	cin.tie(0)->sync_with_stdio(0);
+	cin.exceptions(cin.failbit);
+}
+
