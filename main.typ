@@ -25,6 +25,8 @@
 #insert("ds/st/tag.h")
 #insert("ds/st/lazy_segment_tree.h")
 #insert("ds/st/persistent_lazy_segment_tree.h")
+#insert("ds/st/iterative_segment_tree_oliva.h")
+#insert("ds/st/lazy_segment_tree_oliva.h")
 // #insert("ds/treap_node.h")
 // #insert("ds/treap.h")
 #insert("ds/splay_tree.h")
