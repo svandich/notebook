@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/rectangle_sum"
-#include "../../lib/template.h"
-#include "../../lib/ds/st/persistent_segment_tree.h"
-#include "../../lib/ds/compress_coords.h"
+#include "../../../lib/template.h"
+#include "../../../lib/ds/st/persistent_segment_tree.h"
+#include "../../../lib/ds/compress_coords.h"
 
 int main() {
   cin.tie(0)->sync_with_stdio(0);

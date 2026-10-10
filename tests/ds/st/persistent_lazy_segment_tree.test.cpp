@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/persistent_range_affine_range_sum"
-#include "../../lib/template.h"
-#include "../../lib/ds/st/persistent_lazy_segment_tree.h"
+#include "../../../lib/template.h"
+#include "../../../lib/ds/st/persistent_lazy_segment_tree.h"
 #include "range_affine_op.h"
 
 int path_copy(auto &t, int l, int r, int k, int v) {
