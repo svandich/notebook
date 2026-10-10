@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite" 
-#include "../../lib/template.h"
-#include "../../lib/ds/st/recursive_segment_tree.h"
+#include "../../../lib/template.h"
+#include "../../../lib/ds/st/iterative_segment_tree_oliva.h"
 
 const ll mod = 998244353;
 array<ll, 2> compose(array<ll, 2> a, array<ll, 2> b) {
@@ -16,15 +16,14 @@ int main() {
   for (auto &[a, b] : A) {
     cin >> a >> b;
   }
-  SegmentTree<array<ll, 2>, compose> tree(n, {1, 0});
-  tree.build(A);
+  SegmentTree<array<ll, 2>, compose> tree(A);
   while (q--) {
     int t, x, a, b;
     cin >> t >> x >> a >> b;
     if (t == 0) {
       tree.upd(x, {a, b});
     } else if (t == 1) {
-      array<ll, 2> l = tree.query(x, a); 
+      array<ll, 2> l = tree.query(x, a-1); 
       cout << (l[0]*b + l[1]) % mod << "\n";
     }
   }

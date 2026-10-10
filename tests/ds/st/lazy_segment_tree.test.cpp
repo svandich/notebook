@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum" 
-#include "../../lib/template.h"
-#include "../../lib/ds/st/lazy_segment_tree.h"
+#include "../../../lib/template.h"
+#include "../../../lib/ds/st/lazy_segment_tree.h"
 #include "range_affine_op.h"
 
 int main() {

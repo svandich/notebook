@@ -7,6 +7,7 @@ time = "$O(log N)$"
 - */
 #define cmp(i,j) sgn(dir.perp().cross(poly[(i)%n]-poly[(j)%n]))
 #define extr(i) cmp(i + 1, i) >= 0 && cmp(i, i - 1 + n) < 0
+#define cmpL(i) sgn(a.cross(poly[i], b))
 template <class P> int extrVertex(vec<P>& poly, P dir) {
   int n = sz(poly), lo = 0, hi = n;
   if (extr(0)) return 0;
